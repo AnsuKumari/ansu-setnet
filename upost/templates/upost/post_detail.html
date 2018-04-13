@@ -1,0 +1,72 @@
+{% extends 'upost/base.html' %}
+
+{% block content %}
+
+<div class="col-md-6 col-md-offset-3">
+    <div class="card card-nav-tabs">
+        <div class=" header-primary">
+            <!-- colors: "header-primary", "header-info", "header-success", "header-warning", "header-danger" -->
+            <div class="nav-tabs-navigation">
+                <div class="nav-tabs-wrapper">
+                    <ul class="nav nav-tabs">
+                        <li>
+                            <a href="{% url 'profile' pk=post.user.pk %}">
+                                <i class="material-icons">person</i>
+                                {{ post.user.first_name }}
+                            </a>
+                        </li>
+                        {% if user == post.user %}
+                            <li>
+                                <a href="{% url 'post_edit' pk=post.pk %}" data-toggle="tab">
+                                    <i class="material-icons">edit</i>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="{% url 'post_remove' pk=post.pk %}" data-toggle="tab">
+                                    <i class="material-icons">delete</i>
+                                </a>
+
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="panel panel-default text-left">
+                <div class="panel-body">
+                    <p>{{ post.text|linebreaksbr }}</p>
+                    <hr>
+                    <p class="text-muted"><i class="fa fa-calendar-o"></i> {{ post.created }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <a class="btn btn-default" href="{% url 'comment_add' pk=post.pk %}"><i class="material-icons">chat</i> Add comment</a> <hr>
+    {% for comment in post.comments.all %}
+        {% if user.is_authenticated %}
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="well">
+                        <p class="text-muted"><i class="fa fa-calendar-o"></i> {{ comment.created }}</p>
+                        <strong>{{ comment.user.first_name }}
+                            {% if user == comment.user or user == post.user %}
+                                <a href="{% url 'comment_remove' pk=comment.pk %}"><i class="material-icons">delete</i></a>
+                            {% endif %}
+                        </strong>
+                        <p>{{ comment.text|linebreaks }}</p>
+                    </div>
+                </div>
+            </div>
+        {% endif %}
+    {% empty %}
+        <p>No comments here yet :(</p>
+    {% endfor %}
+
+{% endblock %}
