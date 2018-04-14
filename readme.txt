@@ -2,6 +2,9 @@ SETNET Project
 -------------------------------------------------
 Setnet is a Django 2.0 web project that provides its user with basic social networking site functionality.
 
+To use the website online without having to setup anything visit site : ansu-setnet.herokuapp.com
+To run this application on your local environment follow the below steps.
+
 
 
 Prerequisites
