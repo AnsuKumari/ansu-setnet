@@ -65,6 +65,9 @@ Quickstart
     
 3. Run the web application locally,
     python manage.py runserver # localhost:8000/ or 127.0.0.1:8000/
+    
+4. Create super user to access admin functionality,
+    python manage.py createsuperuser # provide superuser credentials and access admin using url
 
 
 
